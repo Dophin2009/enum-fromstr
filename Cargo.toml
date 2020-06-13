@@ -1,0 +1,13 @@
+[package]
+name = "enum-fromstr"
+version = "0.1.0"
+authors = ["Eric Zhao <21zhaoe@protonmail.com>"]
+edition = "2018"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "1.0"
+quote = "1.0"
+darling = "0.10"
