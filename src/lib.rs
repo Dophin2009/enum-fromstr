@@ -6,16 +6,12 @@ extern crate syn;
 use darling::{ast, util, FromDeriveInput, FromVariant};
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
+use syn::Variant;
 
 #[derive(Debug, FromDeriveInput)]
 struct DerivedEnum {
     pub ident: syn::Ident,
-    pub data: ast::Data<DerivedValue, util::Ignored>,
-}
-
-#[derive(Debug, FromVariant)]
-struct DerivedValue {
-    pub ident: syn::Ident,
+    pub data: ast::Data<Variant, util::Ignored>,
 }
 
 #[proc_macro_derive(EnumFromStr)]
@@ -29,7 +25,7 @@ pub fn derive(input: TokenStream) -> TokenStream {
     if let ast::Data::Enum(ref values) = reciever.data {
         let valids = values
             .iter()
-            .map(|v: &DerivedValue| &v.ident)
+            .map(|v: &Variant| &v.ident)
             .collect::<std::vec::Vec<_>>();
         let valids_str = valids
             .iter()
